@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
-import * as os from "node:os";
+import * as os from "os";
 import { Octokit } from "@octokit/rest";
-import * as path from "node:path";
+import * as path from "path";
 import * as toolcache from "@actions/tool-cache";
 import * as cache from "@actions/cache";
 
@@ -64,11 +64,12 @@ export async function run() {
       osArch,
     };
 
+    const toolBinPath = toolPath(tool);
     const cacheKey = getCacheKey(tool);
-    const cachedPath = await cache.restoreCache([toolPath(tool)], cacheKey);
-    if (cachedPath) {
-      core.info(`Restored from cache: ${cachedPath}`);
-      core.addPath(cachedPath);
+    const got = await cache.restoreCache([toolBinPath], cacheKey);
+    if (got) {
+      core.info(`Restored from cache: ${toolBinPath}`);
+      core.addPath(toolBinPath);
       return;
     }
 
@@ -94,7 +95,6 @@ export async function run() {
     );
     core.info(`Downloaded to: ${downloadedPath}`);
 
-    const toolBinPath = toolPath(tool);
     const extractedPath = await toolcache.extractTar(
       downloadedPath,
       toolBinPath,
