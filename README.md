@@ -1,6 +1,6 @@
 <p align="center">
-  <h1 align="center">Issue Agent Action</h1>
-  <p align="center">GitHub Action For Issue Agent</p>
+  <h1 align="center">setup-issue-agent</h1>
+  <p align="center">GitHub Action for Issue Agent</p>
 </p>
 
 ---
@@ -12,7 +12,7 @@
 ```yaml
 steps:
   - name: Issue Agent
-    uses: clover0/issue-agent-action@v0.1.0
+    uses: clover0/setup-issue-agent@v0.1.0
 ```
 
 ## Specific Version
@@ -20,7 +20,7 @@ steps:
 ```yaml
 steps:
   - name: Issue Agent
-    uses: clover0/issue-agent-action@v0.1.0
+    uses: clover0/setup-issue-agent@v0.1.0
     with:
       version: 0.2.0
 ```

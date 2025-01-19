@@ -1,5 +1,5 @@
 {
-  "name": "issue-agent-action",
+  "name": "setup-issue-agent",
   "version": "1.0.0",
   "description": "GitHub Action For Issue Agent",
   "main": "index.js",
