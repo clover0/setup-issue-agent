@@ -55,7 +55,7 @@ export async function run() {
 
     const cacheKey = getCacheKey(tool);
     const cachedPath = await cache.restoreCache([toolPath(tool)], cacheKey);
-    if (!!cachedPath) {
+    if (cachedPath) {
       core.info(`Restored from cache: ${cachedPath}`);
       core.addPath(cachedPath);
       return;
