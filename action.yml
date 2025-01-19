@@ -1,0 +1,16 @@
+name: "Setup Issue Agent"
+description: "Setup Issue Agent environment and add it to the PATH"
+author: "clover0"
+inputs:
+  token:
+    description: "The token to use for GitHub authentication"
+    default: ${{ github.token }}
+  version:
+    description: "The version to download (if necessary) and use. If you use specific version '0.1.1'"
+    default: "latest"
+outputs:
+  version:
+    description: "Output the installed version"
+runs:
+  using: "node20"
+  main: "dist/index.js"

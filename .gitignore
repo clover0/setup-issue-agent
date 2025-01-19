@@ -1,0 +1,9 @@
+# build
+dist
+
+# local testing
+.env
+
+# project
+node_modules
+package-lock.json
