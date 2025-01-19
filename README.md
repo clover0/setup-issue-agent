@@ -6,7 +6,9 @@
 ---
 
 # Usage
+
 ## Latest Version
+
 ```yaml
 steps:
   - name: Issue Agent
@@ -14,8 +16,8 @@ steps:
 ```
 
 ## Specific Version
-```yaml
 
+```yaml
 steps:
   - name: Issue Agent
     uses: clover0/issue-agent-action@v0.1.0
