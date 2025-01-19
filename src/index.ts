@@ -5,6 +5,13 @@ import * as path from "node:path";
 import * as toolcache from "@actions/tool-cache";
 import * as cache from "@actions/cache";
 
+const archMap = new Map<string, string>([
+  ["x64", "amd64"],
+  ["x86_64", "amd64"],
+  ["aarch64", "arm64"],
+  ["arm64", "arm64"],
+]);
+
 export async function run() {
   try {
     const token = process.env["GITHUB_TOKEN"] || core.getInput("token");
@@ -21,7 +28,12 @@ export async function run() {
     const osPlatform = os.platform();
     core.info(`OS Platform: ${osPlatform}`);
 
-    const osArch = os.arch();
+    const osArch = archMap.get(os.arch());
+    if (!osArch) {
+      core.setFailed(`Unsupported arch: ${osArch}`);
+      return;
+    }
+
     core.info(`OS Arch: ${osArch}`);
 
     core.info(`Version: ${version}`);
@@ -42,7 +54,6 @@ export async function run() {
         tag: versionTag,
       });
     }
-    console.info(release.data);
 
     const tool: Tool = {
       name: "issue-agent",
