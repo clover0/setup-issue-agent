@@ -71255,14 +71255,6 @@ module.exports = require("node:os");
 
 /***/ }),
 
-/***/ 6760:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("node:path");
-
-/***/ }),
-
 /***/ 1708:
 /***/ ((module) => {
 
@@ -86266,9 +86258,9 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = run;
 const core = __nccwpck_require__(7484);
-const os = __nccwpck_require__(8161);
+const os = __nccwpck_require__(857);
 const rest_1 = __nccwpck_require__(1409);
-const path = __nccwpck_require__(6760);
+const path = __nccwpck_require__(6928);
 const toolcache = __nccwpck_require__(3472);
 const cache = __nccwpck_require__(5116);
 const archMap = new Map([
@@ -86322,11 +86314,12 @@ async function run() {
             osPlatform,
             osArch,
         };
+        const toolBinPath = toolPath(tool);
         const cacheKey = getCacheKey(tool);
-        const cachedPath = await cache.restoreCache([toolPath(tool)], cacheKey);
-        if (cachedPath) {
-            core.info(`Restored from cache: ${cachedPath}`);
-            core.addPath(cachedPath);
+        const got = await cache.restoreCache([toolBinPath], cacheKey);
+        if (got) {
+            core.info(`Restored from cache: ${toolBinPath}`);
+            core.addPath(toolBinPath);
             return;
         }
         const assetName = makeAssetName(tool);
@@ -86341,7 +86334,6 @@ async function run() {
             accept: "application/octet-stream",
         });
         core.info(`Downloaded to: ${downloadedPath}`);
-        const toolBinPath = toolPath(tool);
         const extractedPath = await toolcache.extractTar(downloadedPath, toolBinPath);
         core.info(`Extracted to: ${extractedPath}`);
         try {
