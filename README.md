@@ -12,7 +12,7 @@
 ```yaml
 steps:
   - name: Issue Agent
-    uses: clover0/setup-issue-agent@v0.1.0
+    uses: clover0/setup-issue-agent@v0.1.1
 ```
 
 ## Specific Version
@@ -20,7 +20,7 @@ steps:
 ```yaml
 steps:
   - name: Issue Agent
-    uses: clover0/setup-issue-agent@v0.1.0
+    uses: clover0/setup-issue-agent@v0.1.1
     with:
       version: "0.2.5"
 ```
@@ -54,7 +54,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Issue Agent Action
-        uses: clover0/setup-issue-agent@v0.1.0
+        uses: clover0/setup-issue-agent@v0.1.1
 
       - name: Run Issue Agent Action
         run: |

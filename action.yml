@@ -1,6 +1,9 @@
 name: "Setup Issue Agent"
 description: "Setup Issue Agent environment and add it to the PATH"
 author: "clover0"
+branding:
+  icon: "activity"
+  color: "white"
 inputs:
   token:
     description: "The token to use for GitHub authentication"
