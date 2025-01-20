@@ -22,7 +22,7 @@ steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v0.1.0
     with:
-      version: 0.2.0
+      version: "0.2.5"
 ```
 
 # About Issue Agent
@@ -54,7 +54,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Issue Agent Action
-        uses: clover0/setup-issue-agent@v0.0.9
+        uses: clover0/setup-issue-agent@v0.1.0
 
       - name: Run Issue Agent Action
         run: |
