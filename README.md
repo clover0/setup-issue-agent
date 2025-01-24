@@ -22,7 +22,7 @@ steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.2.5"
+      version: "0.6.3"
 ```
 
 # About Issue Agent
