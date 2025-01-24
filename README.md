@@ -22,7 +22,7 @@ steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.2.5"
+      version: "0.6.3"
 ```
 
 # About Issue Agent
@@ -30,7 +30,7 @@ steps:
 
 # GitHub Action Cookbook
 
-## If the issue is labeled
+## Action when labeled
 Example, If the issue is labeled with `run-agent`, run the Issue Agent Action.
 
 ```yml
@@ -74,6 +74,41 @@ jobs:
 ```
 
 ### AWS Bedrock with OIDC
+
+#### 1 Create your IAM Role and Policy
+
+Role example.
+
+```json5
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "bedrock:InvokeModel",
+                "bedrock:InvokeModelWithResponseStream"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                // If you use single-region profile, you must allow foundation-model.
+                "arn:aws:bedrock:us-east-1::foundation-model/*",
+                // If you use cross-region inference, you must allow inference-profile. 
+                "arn:aws:bedrock:*:<your account id>:inference-profile/*",
+              
+                // If you use cross-region profile, you must allow regions.
+                "arn:aws:bedrock:us-east-1::foundation-model/*",
+                "arn:aws:bedrock:us-east-2::foundation-model/*",
+                "arn:aws:bedrock:us-west-1::foundation-model/*",
+                "arn:aws:bedrock:us-west-2::foundation-model/*",
+                "arn:aws:bedrock:us-west-2:<your account id>:inference-profile/*"
+            ],
+        }
+    ]
+}
+
+```
+
+#### 2 GitGub Action
 
 `claude-3-5-sonnet-20241022-v2` is recommended.
 
