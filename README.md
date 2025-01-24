@@ -30,7 +30,7 @@ steps:
 
 # GitHub Action Cookbook
 
-## Labeled Action
+## Action when labeled
 Example, If the issue is labeled with `run-agent`, run the Issue Agent Action.
 
 ```yml
