@@ -1,0 +1,42 @@
+name: Update Major Tag
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+    branches-ignore:
+      - "**"
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get major version from tag
+        id: get_major
+        run: |
+          tag=${GITHUB_REF#refs/tags/}
+          major=${tag%%.*}
+          echo "TAG_MAJOR=${major}" >> "$GITHUB_ENV"
+
+      - name: Verify major version
+        run: |
+          echo "major=${TAG_MAJOR}"
+          if [[ $TAG_MAJOR =~ ^v[0-9]+$ ]]; then
+            echo "Valid: major is in the correct format $TAG_MAJOR"
+          else
+            echo "Invalid: major is not in the correct format $TAG_MAJOR"
+            exit 1
+          fi
+
+      - run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
+
+      - run: git tag -f ${TAG_MAJOR}
+
+      - run: git push origin ${TAG_MAJOR} --force
