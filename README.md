@@ -15,14 +15,14 @@ steps:
     uses: clover0/setup-issue-agent@v1
 ```
 
-## Specific Version
+## Specific Issue Agent Version
 
 ```yaml
 steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.6.3"
+      version: "0.7.0"
 ```
 
 # About Issue Agent
@@ -30,7 +30,7 @@ steps:
 
 # GitHub Action Cookbook
 
-## Action when labeled
+## If the issue is labeled
 Example, If the issue is labeled with `run-agent`, run the Issue Agent Action.
 
 ```yml
@@ -62,53 +62,15 @@ jobs:
 
       - name: Run Issue Agent Action
         run: |
-          issue-agent issue --github_owner ${GITHUB_REPOSITORY_OWNER} \
-                    --work_repository ${GITHUB_REPOSITORY#*/} \
-                    --github_issue_number ${{ github.event.issue.number }} \
+          issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
                     --base_branch main \
-                    --model claude-3-5-sonnet-latest \
-                    --language Japanese
+                    --model claude-3-5-sonnet-latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
 
 ### AWS Bedrock with OIDC
-
-#### 1 Create your IAM Role and Policy
-
-Role example.
-
-```json5
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "bedrock:InvokeModel",
-                "bedrock:InvokeModelWithResponseStream"
-            ],
-            "Effect": "Allow",
-            "Resource": [
-                // If you use single-region profile, you must allow foundation-model.
-                "arn:aws:bedrock:us-east-1::foundation-model/*",
-                // If you use cross-region inference, you must allow inference-profile. 
-                "arn:aws:bedrock:*:<your account id>:inference-profile/*",
-              
-                // If you use cross-region profile, you must allow regions.
-                "arn:aws:bedrock:us-east-1::foundation-model/*",
-                "arn:aws:bedrock:us-east-2::foundation-model/*",
-                "arn:aws:bedrock:us-west-1::foundation-model/*",
-                "arn:aws:bedrock:us-west-2::foundation-model/*",
-                "arn:aws:bedrock:us-west-2:<your account id>:inference-profile/*"
-            ],
-        }
-    ]
-}
-
-```
-
-#### 2 GitGub Action
 
 `claude-3-5-sonnet-20241022-v2` is recommended.
 
@@ -153,14 +115,10 @@ jobs:
 
       - name: Run Issue Agent Action
         run: |
-          issue-agent issue --github_owner ${GITHUB_REPOSITORY_OWNER} \
-                    --work_repository ${GITHUB_REPOSITORY#*/} \
-                    --github_issue_number ${{ github.event.issue.number }} \
+          issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
                     --base_branch main \
                     --model us.anthropic.claude-3-5-sonnet-20241022-v2:0 \
-                    --log_level debug \
-                    --language Japanese \
-                    --aws_region us-west-1
+                    --aws_region us-west-2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
