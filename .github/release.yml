@@ -17,9 +17,10 @@ changelog:
     - title: 📚 Documentation
       labels:
         - documentation
-    - title: CI/CD
+    - title: CI/CD & Testing
       labels:
         - ci-cd
+        - testing
     - title: 🔧 Maintenance
       labels:
         - maintenance
