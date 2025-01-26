@@ -17,14 +17,14 @@ changelog:
     - title: 📚 Documentation
       labels:
         - documentation
-    - title: CI/CD & Testing
+    - title: 🤖 CI/CD & Testing
       labels:
         - ci-cd
         - testing
     - title: 🔧 Maintenance
       labels:
         - maintenance
-    - title: 👒 Dependencies
+    - title: 📦 Dependencies
       labels:
         - dependencies
     - title: Other Changes
