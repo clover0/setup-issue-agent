@@ -4,3 +4,4 @@
 	versionFile = -
 	changelog = false
 	release = true
+	commitPrefix = "[release]"
