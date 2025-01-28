@@ -22,7 +22,7 @@ steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.7.1"
+      version: "0.9.1"
 ```
 
 # About Issue Agent
@@ -33,7 +33,7 @@ steps:
 
 ## If the issue is labeled
 
-Example, If the issue is labeled with `run-agent`, run the Issue Agent Action.
+For example, if an issue is labeled as 'run-agent', the Issue Agent Action will be triggered.
 
 ```yml
 name: Run Agent on Label
@@ -62,7 +62,8 @@ jobs:
         run: |
           issue-agent version
 
-      - uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
+      # You can also use your Personal Access Token (PAT) instead of the token issued by the GitHub App
+      - uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
@@ -82,8 +83,6 @@ jobs:
 
 `claude-3-5-sonnet-20241022-v2` is recommended.
 
-If you do not care about regions, you can also use cross-region inference.
-In that case, use cross-region profile. For Example, `us.anthropic.claude-3-5-sonnet-20241022-v2:0`.
 
 ```yml
 name: Run Agent on Label
@@ -120,12 +119,13 @@ jobs:
         run: |
           issue-agent version
 
-      - uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
+      # You can also use your Personal Access Token (PAT) instead of the token issued by the GitHub App
+      - uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
-      
+       
       - name: Run Issue Agent Action
         run: |
           issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
@@ -135,3 +135,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 ```
+
+If regional specificity is not a concern, you can use cross-region inference with a cross-region profile.
+For example, 'us.anthropic.claude-3-5-sonnet-20241022-v2:0'.
