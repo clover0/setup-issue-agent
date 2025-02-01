@@ -31,6 +31,11 @@ steps:
 
 # GitHub Action Cookbook
 
+Issue Agent requires the following permissions.
+- Issues: Read-only
+- Contents: Readn and Write
+- Pull requests: Read and Write
+
 ## If the issue is labeled
 
 For example, if an issue is labeled as 'run-agent', the Issue Agent Action will be triggered.
