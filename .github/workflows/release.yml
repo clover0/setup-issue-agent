@@ -8,6 +8,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    outputs:
+      tag: ${{ steps.tagpr.outputs.tag }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
@@ -18,10 +20,13 @@ jobs:
           private-key: ${{ secrets.TOKEN_GEN_PRIVATE_KEY }}
 
       - uses: Songmu/tagpr@e89d37247ca73d3e5620bf074a53fbd5b39e66b0 # v1.5.1
+        id: tagpr
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   update-major-tag:
+    needs: [tagpr]
+    if: needs.tagpr.outputs.tag != ''
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -32,7 +37,7 @@ jobs:
       - name: Get major version from tag
         id: get_major
         run: |
-          tag=${GITHUB_REF#refs/tags/}
+          tag=${{ needs.tagpr.outputs.tag }}
           major=${tag%%.*}
           echo "TAG_MAJOR=${major}" >> "$GITHUB_ENV"
 
