@@ -15,6 +15,7 @@ steps:
     uses: clover0/setup-issue-agent@v1
 ```
 
+
 ## Specific Issue Agent Version
 
 ```yaml
@@ -22,23 +23,27 @@ steps:
   - name: Issue Agent
     uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.9.1"
+      version: "0.10.2"
 ```
+
 
 # About Issue Agent
 
-[https://clover0.github.io/issue-agent/](Documentation)
+[Documentation](https://clover0.github.io/issue-agent/)
 
-# GitHub Action Cookbook
 
-Issue Agent requires the following permissions.
+# GitHub Actions Cookbook
+
+Issue Agent requires the following GitHub permissions.
 - Issues: Read-only
 - Contents: Readn and Write
 - Pull requests: Read and Write
 
-## If the issue is labeled
 
-For example, if an issue is labeled as 'run-agent', the Issue Agent Action will be triggered.
+## Run Action by labeling an issue
+
+
+Example of running an issue with the label `run-agent`.
 
 ```yml
 name: Run Agent on Label
@@ -78,15 +83,14 @@ jobs:
         run: |
           issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
                     --base_branch main \
-                    --model claude-3-5-sonnet-latest
+                    --model claude-3-7-sonnet-20250219
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
 
-### AWS Bedrock with OIDC
 
-`claude-3-5-sonnet-20241022-v2` is recommended.
+### AWS Bedrock with OIDC
 
 
 ```yml
@@ -140,6 +144,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 ```
+
 
 If regional specificity is not a concern, you can use cross-region inference with a cross-region profile.
 For example, 'us.anthropic.claude-3-5-sonnet-20241022-v2:0'.
