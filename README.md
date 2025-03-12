@@ -38,6 +38,9 @@ Issue Agent requires the following GitHub permissions.
 - Issues: Read-only
 - Contents: Readn and Write
 - Pull requests: Read and Write
+- [optional] Workflows: Read and Write (If you change the workflow files)
+
+Full workflow example: [full_workflow.yml](examples/full_workflow.yml)
 
 
 ## Run Action by labeling an issue
@@ -62,15 +65,8 @@ jobs:
       issues: read
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Install Issue Agent Action
         uses: clover0/setup-issue-agent@v1
-
-      - name: Run Issue Agent Action
-        run: |
-          issue-agent version
 
       # You can also use your Personal Access Token (PAT) instead of the token issued by the GitHub App
       - uses: actions/create-github-app-token@v1
@@ -111,9 +107,6 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Install Issue Agent Action
         uses: clover0/setup-issue-agent@v1
 
@@ -123,10 +116,6 @@ jobs:
           role-to-assume: "arn:aws:iam::<AWS-ACCOUNT>:role/<ROLE-NAME>"
           role-session-name: run-agent-${{ github.run_id }}
           aws-region: "AWS-REGION"
-
-      - name: Run Issue Agent Action
-        run: |
-          issue-agent version
 
       # You can also use your Personal Access Token (PAT) instead of the token issued by the GitHub App
       - uses: actions/create-github-app-token@v1
