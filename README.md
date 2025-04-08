@@ -56,13 +56,11 @@ on:
     types:
       - labeled
 
+permissions: {}
+
 jobs:
   run-agent:
     if: ${{ github.event.label.name == 'run-agent' }}
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: read
     runs-on: ubuntu-latest
     steps:
       - name: Install Issue Agent Action
@@ -101,9 +99,6 @@ jobs:
   run-agent-oidc:
     if: ${{ github.event.label.name == 'run-agent' }}
     permissions:
-      contents: write
-      pull-requests: write
-      issues: read
       id-token: write
     runs-on: ubuntu-latest
     steps:
@@ -129,7 +124,7 @@ jobs:
           issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
                     --base_branch main \
                     --model us.anthropic.claude-3-5-sonnet-20241022-v2:0 \
-                    --aws_region us-west-2
+                    --aws_region us-east-1
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 ```
