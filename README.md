@@ -11,8 +11,7 @@
 
 ```yaml
 steps:
-  - name: Issue Agent
-    uses: clover0/setup-issue-agent@v1
+  - uses: clover0/setup-issue-agent@v1
 ```
 
 
@@ -20,21 +19,19 @@ steps:
 
 ```yaml
 steps:
-  - name: Issue Agent
-    uses: clover0/setup-issue-agent@v1
+  - uses: clover0/setup-issue-agent@v1
     with:
-      version: "0.14.1"
+      version: "0.16.0"
 ```
-
 
 # About Issue Agent
 
 [Documentation](https://clover0.github.io/issue-agent/)
 
-
 # GitHub Actions Cookbook
 
 Issue Agent requires the following GitHub permissions.
+
 - Issues: Read-only
 - Contents: Readn and Write
 - Pull requests: Read and Write
@@ -83,9 +80,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
 
-
 ### AWS Bedrock with OIDC
-
 
 ```yml
 name: Run Agent on Label
@@ -118,7 +113,7 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
-       
+
       - name: Run Issue Agent Action
         run: |
           issue-agent create-pr ${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }} \
