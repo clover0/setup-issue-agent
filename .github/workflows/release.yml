@@ -19,7 +19,7 @@ jobs:
           app-id: ${{ secrets.TOKEN_GEN_APP_ID }}
           private-key: ${{ secrets.TOKEN_GEN_PRIVATE_KEY }}
 
-      - uses: Songmu/tagpr@e89d37247ca73d3e5620bf074a53fbd5b39e66b0 # v1.5.1
+      - uses: Songmu/tagpr@0c4eb5a3b0862693702acea436a7c68bd586530d # v1.21.2
         id: tagpr
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
